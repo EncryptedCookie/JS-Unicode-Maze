@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JS Maze</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="maze.js" charset="utf-8"></script>
+</head>
+<body>
+    <div class="unicode-maze-game enter-to-start"></div>
+    <div class="win-message">You Win!</div>
+    <script>
+        var game_screen = $('.unicode-maze-game.enter-to-start');
+        var win_screen = $('.win-message');
+
+        function get_goal() {
+            if (currentMaze.number !== 3) {
+                currentMaze.number += 1;
+                import_Maze(currentMaze.number);
+                if (currentMaze.number === 2) {
+                    game_screen.css("width", "232px");
+                } else if (currentMaze.number === 3) {
+                    game_screen.css("width", "253px");
+                }
+            } else if (currentMaze.number === 3) {
+                win_screen.css("visibility", "visible");
+                win_screen.css("transform", "translateY(-50px)");
+                return true;
+            }
+        }
+
+        game_screen.html('Arrow Keys to Move, Press Enter to Start');
+            $(document).keydown(function (e) {
+                if (e.which === 13) { // Enter
+                    game_screen.removeClass('enter-to-start');
+                    import_Maze(1);
+                    game_screen.html(currentMaze.level);
+                }
+                if (e.which === 37) {
+                    move_player("left");
+                    game_screen.html(currentMaze.level);
+                }
+                if (e.which === 38) {
+                    move_player("up");
+                    game_screen.html(currentMaze.level);
+                }
+                if (e.which === 39) {
+                    move_player("right");
+                    game_screen.html(currentMaze.level);
+                }
+                if (e.which === 40) {
+                    move_player("down");
+                    game_screen.html(currentMaze.level);
+                }
+            });
+    </script>
+</body>
+</html>
